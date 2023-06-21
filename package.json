@@ -74,7 +74,8 @@
     "solhint:check": "npx solhint 'contracts/**/*.sol'",
     "solhint:fix": "npx solhint 'contracts/**/*.sol' --fix",
     "lint:check": "yarn prettier:check && yarn solhint:check && npx eslint **/*.{js,ts}",
-    "lint:fix": "yarn prettier:fix && yarn solhint:fix && npx eslint **/*.{js,ts} --fix"
+    "lint:fix": "yarn prettier:fix && yarn solhint:fix && npx eslint **/*.{js,ts} --fix",
+    "verify": "npx hardhat verify 0x6F9b7892a6272880905E90DC5AcD1F56dF222FbE --network goerli"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",

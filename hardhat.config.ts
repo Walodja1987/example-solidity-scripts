@@ -114,11 +114,13 @@ const config: HardhatUserConfig = {
       url: process.env.POLYGON_TESTNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 50000000000,
     },
     polygon: {
       url: process.env.POLYGON_MAINNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 400000000000,
     },
     hecoTestnet: {
       url: process.env.HECO_TESTNET_URL || "",
@@ -224,10 +226,10 @@ const config: HardhatUserConfig = {
   xdeploy: {
     // Change this name to the name of your main contract.
     // Does not necessarily have to match the contract file name.
-    contract: "Greeter",
+    contract: "BalanceChecker",
 
     // Change to `undefined` if your constructor does not have any input arguments.
-    constructorArgsPath: "./deploy-args.ts",
+    constructorArgsPath: undefined, // "./deploy-args.ts",
 
     // The salt must be the same for each EVM chain for which you want to have a single contract address.
     // Change the salt if you are doing a re-deployment with the same codebase.
@@ -238,18 +240,20 @@ const config: HardhatUserConfig = {
 
     // Use the network names specified here: https://github.com/pcaversaccio/xdeployer#configuration.
     // Use `localhost` or `hardhat` for local testing.
-    networks: ["hardhat", "rinkeby", "bscTestnet"],
+    networks: ["hardhat", "rinkeby", "ropsten", "kovan", "polygon"],
 
     // Use the matching env URL with your chosen RPC in the `.env` file.
     rpcUrls: [
       "hardhat",
       process.env.ETH_RINKEBY_TESTNET_URL,
-      process.env.BSC_TESTNET_URL,
+      process.env.ETH_ROPSTEN_TESTNET_URL,
+      process.env.ETH_KOVAN_TESTNET_URL,
+      process.env.POLYGON_TESTNET_URL
     ],
 
     // Maximum limit is 15 * 10 ** 6 or 15,000,000. If the deployments are failing, try increasing this number.
     // However, keep in mind that this costs money in a production environment!
-    gasLimit: 1.2 * 10 ** 6,
+    gasLimit: 4.0 * 10 ** 6,
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
@@ -273,49 +277,51 @@ const config: HardhatUserConfig = {
     pretty: true,
   },
   etherscan: {
-    apiKey: {
-      // For Rinkeby, Ropsten, Kovan, Goerli, Mainnet.
-      mainnet: process.env.ETHERSCAN_API_KEY,
-      ropsten: process.env.ETHERSCAN_API_KEY,
-      rinkeby: process.env.ETHERSCAN_API_KEY,
-      goerli: process.env.ETHERSCAN_API_KEY,
-      kovan: process.env.ETHERSCAN_API_KEY,
-      // For BSC testnet & mainnet.
-      bsc: process.env.BSC_API_KEY,
-      bscTestnet: process.env.BSC_API_KEY,
-      // For Heco testnet & mainnet.
-      heco: process.env.HECO_API_KEY,
-      hecoTestnet: process.env.HECO_API_KEY,
-      // For Fantom testnet & mainnet.
-      opera: process.env.FANTOM_API_KEY,
-      ftmTestnet: process.env.FANTOM_API_KEY,
-      // For Optimism testnet & mainnet.
-      optimisticEthereum: process.env.OPTIMISM_API_KEY,
-      optimisticKovan: process.env.OPTIMISM_API_KEY,
-      // For Polygon testnet & mainnet.
-      polygon: process.env.POLYGON_API_KEY,
-      polygonMumbai: process.env.POLYGON_API_KEY,
-      // For Arbitrum testnet & mainnet.
-      arbitrumOne: process.env.ARBITRUM_API_KEY,
-      arbitrumTestnet: process.env.ARBITRUM_API_KEY,
-      // For Avalanche testnet & mainnet.
-      avalanche: process.env.AVALANCHE_API_KEY,
-      avalancheFujiTestnet: process.env.AVALANCHE_API_KEY,
-      // For Moonbeam testnet & mainnets.
-      moonbeam: process.env.MOONBEAM_API_KEY,
-      moonriver: process.env.MOONBEAM_API_KEY,
-      moonbaseAlpha: process.env.MOONBEAM_API_KEY,
-      // For Harmony testnet & mainnet.
-      harmony: process.env.HARMONY_API_KEY,
-      harmonyTest: process.env.HARMONY_API_KEY,
-      // For Aurora testnet & mainnet.
-      aurora: process.env.AURORA_API_KEY,
-      auroraTestnet: process.env.AURORA_API_KEY,
-      // xdai and sokol don't need an API key, but you still need
-      // to specify one; any string placeholder will work.
-      xdai: "wagmi",
-      sokol: "wagmi",
-    },
+    apiKey: process.env.ETHERSCAN_API_KEY 
+    // {
+    //   // For Rinkeby, Ropsten, Kovan, Goerli, Mainnet.
+    //   mainnet: process.env.ETHERSCAN_API_KEY,
+    //   ropsten: process.env.ETHERSCAN_API_KEY,
+    //   rinkeby: process.env.ETHERSCAN_API_KEY,
+    //   goerli: process.env.ETHERSCAN_API_KEY,
+    //   kovan: process.env.ETHERSCAN_API_KEY,
+    //   // For BSC testnet & mainnet.
+    //   bsc: process.env.BSC_API_KEY,
+    //   bscTestnet: process.env.BSC_API_KEY,
+    //   // For Heco testnet & mainnet.
+    //   heco: process.env.HECO_API_KEY,
+    //   hecoTestnet: process.env.HECO_API_KEY,
+    //   // For Fantom testnet & mainnet.
+    //   opera: process.env.FANTOM_API_KEY,
+    //   ftmTestnet: process.env.FANTOM_API_KEY,
+    //   // For Optimism testnet & mainnet.
+    //   optimisticEthereum: process.env.OPTIMISM_API_KEY,
+    //   optimisticKovan: process.env.OPTIMISM_API_KEY,
+    //   // For Polygon testnet & mainnet.
+    //   polygon: process.env.POLYGON_API_KEY,
+    //   polygonMumbai: process.env.POLYGON_API_KEY,
+    //   // For Arbitrum testnet & mainnet.
+    //   arbitrumOne: process.env.ARBITRUM_API_KEY,
+    //   arbitrumTestnet: process.env.ARBITRUM_API_KEY,
+    //   // For Avalanche testnet & mainnet.
+    //   avalanche: process.env.AVALANCHE_API_KEY,
+    //   avalancheFujiTestnet: process.env.AVALANCHE_API_KEY,
+    //   // For Moonbeam testnet & mainnets.
+    //   moonbeam: process.env.MOONBEAM_API_KEY,
+    //   moonriver: process.env.MOONBEAM_API_KEY,
+    //   moonbaseAlpha: process.env.MOONBEAM_API_KEY,
+    //   // For Harmony testnet & mainnet.
+    //   harmony: process.env.HARMONY_API_KEY,
+    //   harmonyTest: process.env.HARMONY_API_KEY,
+    //   // For Aurora testnet & mainnet.
+    //   aurora: process.env.AURORA_API_KEY,
+    //   auroraTestnet: process.env.AURORA_API_KEY,
+    //   // xdai and sokol don't need an API key, but you still need
+    //   // to specify one; any string placeholder will work.
+    //   xdai: "wagmi",
+    //   sokol: "wagmi",
+    // }
+    ,
   },
   tenderly: {
     username: "MyAwesomeUsername",

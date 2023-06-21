@@ -17,3 +17,6 @@ deployments
 
 # foundry files
 forge-artifacts
+
+yarn.lock
+package-lock.json
