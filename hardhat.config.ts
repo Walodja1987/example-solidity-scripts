@@ -40,7 +40,7 @@ task(
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.9",
+    version: "0.8.19",
     settings: {
       optimizer: {
         enabled: true,
@@ -65,8 +65,8 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    ropsten: {
-      url: process.env.ETH_ROPSTEN_TESTNET_URL || "",
+    sepolia: {
+      url: process.env.ETH_SEPOLIA_TESTNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
@@ -152,10 +152,11 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    sokol: {
+    chiado: {
       url: process.env.GNOSIS_TESTNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 7000000000
     },
     gnosis: {
       url: process.env.GNOSIS_MAINNET_URL || "",
@@ -319,7 +320,7 @@ const config: HardhatUserConfig = {
     //   // xdai and sokol don't need an API key, but you still need
     //   // to specify one; any string placeholder will work.
     //   xdai: "wagmi",
-    //   sokol: "wagmi",
+    //   chiado: "wagmi",
     // }
     ,
   },

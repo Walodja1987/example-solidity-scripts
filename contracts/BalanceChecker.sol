@@ -20,7 +20,7 @@
 
 */
 
-pragma solidity 0.8.9;
+pragma solidity 0.8.19;
 
 // ERC20 contract interface
 abstract contract IToken {
