@@ -1,13 +1,13 @@
 // Script to deploy an ERC20 token for testing purposes
-
+// Run: `yarn hardhat run scripts/deploy/deployERC20Token.ts --network polygon`
 import { parseUnits } from '@ethersproject/units';
 import hre, { ethers } from "hardhat";
 
 async function main() {
 
-    const tokenName = "WAGMI"
-    const symbol = "WAGMI"
-    const decimals = 6
+    const tokenName = "dUSD"
+    const symbol = "dUSD"
+    const decimals = 18
     const totalSupply = parseUnits("10000000000000000000000000000000", decimals)
     const recipient = "0x9AdEFeb576dcF52F5220709c1B267d89d5208D78"
 
