@@ -5,10 +5,10 @@ import hre, { ethers } from "hardhat";
 
 async function main() {
 
-    const tokenName = "dUSD"
-    const symbol = "dUSD"
+    const tokenName = "GazBoy4Life"
+    const symbol = "GB4L"
     const decimals = 18
-    const totalSupply = parseUnits("10000000000000000000000000000000", decimals)
+    const totalSupply = parseUnits("69000000", decimals)
     const recipient = "0x9AdEFeb576dcF52F5220709c1B267d89d5208D78"
 
     const ERC20 = await hre.ethers.getContractFactory("ERC20Token");

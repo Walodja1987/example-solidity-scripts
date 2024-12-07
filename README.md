@@ -100,3 +100,22 @@ or
 ```bash
 make test
 ```
+
+
+# Contract Verification
+
+1. Deploy contract
+2. Specify the constructor arguments in the `arguments.js` file. Example:
+```bash
+module.exports = [
+    "GazBoy4Life",
+    "GB4L",
+    "69000000000000000000000000",
+    "0x9AdEFeb576dcF52F5220709c1B267d89d5208D78",
+    18
+];
+```
+3. Run (`0xFA158C9B780A4213f3201Ae74Cca013712c8538d` is the contract address):
+```bash
+npx hardhat verify --network baseMain --constructor-args arguments.js 0xFA158C9B780A4213f3201Ae74Cca013712c8538d
+```

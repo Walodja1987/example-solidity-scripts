@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
-import "@nomiclabs/hardhat-etherscan";
+import "@nomicfoundation/hardhat-verify";
 import "@typechain/hardhat";
 import "xdeployer";
 import "hardhat-gas-reporter";
@@ -57,6 +57,11 @@ const config: HardhatUserConfig = {
     },
     rinkeby: {
       url: process.env.ETH_RINKEBY_TESTNET_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    baseMain: {
+      url: process.env.BASE_MAINNET_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
@@ -224,6 +229,7 @@ const config: HardhatUserConfig = {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   },
+  
   xdeploy: {
     // Change this name to the name of your main contract.
     // Does not necessarily have to match the contract file name.
@@ -327,6 +333,12 @@ const config: HardhatUserConfig = {
   tenderly: {
     username: "MyAwesomeUsername",
     project: "super-awesome-project",
+  },
+  sourcify: {
+    // Enable Sourcify verification by default
+    enabled: true,
+    apiUrl: "https://sourcify.dev/server",
+    browserUrl: "https://repo.sourcify.dev",
   },
 };
 
